@@ -7,6 +7,7 @@ options = { noremap = true, silent = true }
 vim.g.mapleader = ','
 -- keyset('n', 'K', [[o-<Space>]], options)
 keyset('n', '<C-F>', [[:vimgrep]], options)
+keyset('n', '<leader>t', [[:ToggleTerm<cr>]], options)
 keyset('n', '<C-Q>', [[ciw]], options)
 keyset('n', '<leader>ff', '<cmd>Telescope find_files<cr>', options)
 keyset('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', options)
@@ -122,7 +123,6 @@ require('lazy').setup({
   })
 
 vim.cmd([[colorscheme kanagawa-wave]])
-
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
