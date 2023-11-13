@@ -119,7 +119,16 @@ require('lazy').setup({
 	"L3MON4D3/LuaSnip",
 	version = "v2.*", 
 	build = "make install_jsregexp"
-}
+},
+{
+  "iamcco/markdown-preview.nvim",
+  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  build = "cd app && yarn install",
+  init = function()
+    vim.g.mkdp_filetypes = { "markdown" }
+  end,
+  ft = { "markdown" },
+},
   })
 
 vim.cmd([[colorscheme kanagawa-wave]])
@@ -184,3 +193,7 @@ cmp.setup({
   require('lspconfig')['ruff_lsp'].setup {
     capabilities = capabilities
 }
+  require'lspconfig'.bashls.setup{}
+--   require('lspconfig')['bash_language_server'].setup{
+--     capabilities = capabilities
+-- }
