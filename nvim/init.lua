@@ -13,6 +13,7 @@ keyset('n', '<leader>ff', '<cmd>Telescope find_files<cr>', options)
 keyset('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', options)
 keyset('n', '<leader>fb', '<cmd>Telescope buffers<cr>', options)
 keyset('t', '<esc>', [[<C-\><C-n>]], options)
+keyset('n', '<leader>yt', [[:tabnew<space>]], options)
 
 -- <SETS DEFAULTS>
 set.background = 'dark'
@@ -191,6 +192,9 @@ cmp.setup({
   -- Set up lspconfig.
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
   require('lspconfig')['ruff_lsp'].setup {
+    capabilities = capabilities
+}
+  require'lspconfig'.pyright.setup{
     capabilities = capabilities
 }
   require'lspconfig'.bashls.setup{}
