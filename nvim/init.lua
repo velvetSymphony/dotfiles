@@ -108,6 +108,7 @@ require('lazy').setup({
   'rebelot/kanagawa.nvim',
   'neovim/nvim-lspconfig',
   'nvim-lua/plenary.nvim',
+  'preservim/vim-markdown',
   {'nvim-treesitter/nvim-treesitter', [[do = ':TSUpdate']]},
   { 'nvim-telescope/telescope.nvim', tag = '0.1.4' },
   {'akinsho/toggleterm.nvim', version = "*", config = true},
