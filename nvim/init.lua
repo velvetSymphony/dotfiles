@@ -134,7 +134,7 @@ require('lazy').setup({
 },
   })
 
-vim.cmd([[colorscheme kanagawa-wave]])
+vim.cmd([[colorscheme rose-pine]])
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
