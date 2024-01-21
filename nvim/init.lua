@@ -122,6 +122,7 @@ require('lazy').setup({
 	version = "v2.*", 
 	build = "make install_jsregexp"
 },
+  { 'rose-pine/neovim', name = 'rose-pine' },
 {
   "iamcco/markdown-preview.nvim",
   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
