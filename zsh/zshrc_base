@@ -1,0 +1,41 @@
+zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
+
+# Don't wanna type sudo every single time for these commands. I dont want to switch to root.
+for command in mount umount sv apt apt-get nala updatedb su shutdown poweroff reboot docker; do
+	alias $command="sudo $command"
+done; unset command
+
+
+# Plugins
+plugins=(
+    git
+    colored-man-pages
+    colorize
+    shell-proxy
+    z
+    fzf 
+    )
+
+
+ZSH_COLORIZE_TOOL="chroma"
+ZSH_COLORIZE_STYLE="dracula"
+ZSH_COLORIZE_CHROMA_FORMATTER="terminal16m"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+HISTSIZE=10000000
+SAVEHIST=10000000
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
+
+# Aliases
+alias nv="nvim"
+alias ll="ls -latr"
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
