@@ -1,3 +1,12 @@
+-- vimming
+vim.cmd([[
+    let g:vim_markdown_folding_disabled = 1 
+    let g:vim_markdown_follow_anchor = 1 
+    let g:vim_markdown_auto_insert_bullets = 0 
+    let g:vim_markdown_new_list_item_indent = 0 
+    let g:vim_markdown_edit_url_in = 'tab' 
+]])
+
 -- LUA CONFIG FROM HERE
 keyset = vim.keymap.set
 set = vim.o
@@ -101,40 +110,36 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-
-  'vim-airline/vim-airline',
-  'tpope/vim-fugitive',
-  'NLKNguyen/papercolor-theme',
-  'rebelot/kanagawa.nvim',
-  'neovim/nvim-lspconfig',
-  'nvim-lua/plenary.nvim',
-  'preservim/vim-markdown',
-  {'nvim-treesitter/nvim-treesitter', [[do = ':TSUpdate']]},
-  { 'nvim-telescope/telescope.nvim', tag = '0.1.4' },
-  {'akinsho/toggleterm.nvim', version = "*", config = true},
-  'hrsh7th/cmp-nvim-lsp',
+    'vim-airline/vim-airline',
+    'tpope/vim-fugitive',
+    'NLKNguyen/papercolor-theme',
+    'rebelot/kanagawa.nvim',
+    'neovim/nvim-lspconfig',
+    'nvim-lua/plenary.nvim',
+    'preservim/vim-markdown',
+    {
+       'nvim-treesitter/nvim-treesitter', [[do = ':TSUpdate']]
+    },
+    { 
+        'nvim-telescope/telescope.nvim', tag = '0.1.4' 
+    },
+    {
+        'akinsho/toggleterm.nvim', version = "*", config = true
+    },
+    'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
     'hrsh7th/nvim-cmp',
     {
-	"L3MON4D3/LuaSnip",
-	version = "v2.*", 
-	build = "make install_jsregexp"
-},
-  { 'rose-pine/neovim', name = 'rose-pine' },
-{
-  "iamcco/markdown-preview.nvim",
-  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  build = "cd app && yarn install",
-  init = function()
-    vim.g.mkdp_filetypes = { "markdown" }
-  end,
-  ft = { "markdown" },
-},
-  })
+	    "L3MON4D3/LuaSnip", version = "v2.*", build = "make install_jsregexp"
+    },
+    { 
+        'rose-pine/neovim', name = 'rose-pine' 
+    },
+})
 
-vim.cmd([[colorscheme rose-pine]])
+vim.cmd([[colorscheme kanagawa-wave]])
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
