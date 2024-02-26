@@ -111,11 +111,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
     'vim-airline/vim-airline',
-    'tpope/vim-fugitive',
     'NLKNguyen/papercolor-theme',
     'rebelot/kanagawa.nvim',
     'neovim/nvim-lspconfig',
     'nvim-lua/plenary.nvim',
+    'FabijanZulj/blame.nvim',
     'preservim/vim-markdown',
     {
        'nvim-treesitter/nvim-treesitter', [[do = ':TSUpdate']]
@@ -204,7 +204,5 @@ cmp.setup({
   require'lspconfig'.pyright.setup{
     capabilities = capabilities
 }
+  require'lspconfig'.tsserver.setup{}
   require'lspconfig'.bashls.setup{}
---   require('lspconfig')['bash_language_server'].setup{
---     capabilities = capabilities
--- }
