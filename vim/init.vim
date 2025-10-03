@@ -1,3 +1,4 @@
+" OUTDATED: TBD
 set background=dark
 " Some servers have issues with backup files, see #649
 set nowritebackup
