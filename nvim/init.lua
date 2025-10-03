@@ -92,7 +92,6 @@ Set.history = 5000
 
 -- https://neovim.io/doc/user/fold.html#_2.-fold-commands
 Set.foldmethod = "manual"
->>>>>>> 64a2ae1 (major rework)
 
 -- Prepend 'lazypath' to the runtimepath (rtp) of neovim
 -- See https://stackoverflow.com/questions/78660123/what-is-vim-loop-fs-stat
