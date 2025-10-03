@@ -1,81 +1,101 @@
--- Vimming
-
-vim.cmd([[
-    let g:gitblame_enabled = 0
-    let g:vim_markdown_edit_url_in = 'tab'
-    let g:vim_markdown_folding_disabled = 1
-    highlight ExtraWhitespace ctermbg=red guibg=red
-    match ExtraWhitespace /\s\+$/
-]])
-
--- LUA CONFIG FROM HERE
-keyset = vim.keymap.set
-set = vim.o
-options = { noremap = true, silent = true }
+Keyset = vim.keymap.set
+Set = vim.o
+Options = { noremap = true, silent = true }
 
 -- <MAPPINGS>
-vim.g.mapleader = ","
--- keyset('n', 'K', [[o-<Space>]], options)
-keyset("n", "<C-F>", [[:vimgrep]], options)
-keyset("n", "<leader>t", [[:ToggleTerm<cr>]], options)
-keyset("n", "<C-Q>", [[ciw]], options)
-keyset("n", "<leader>ff", "<cmd>:Pick files<cr>", options)
-keyset("n", "<leader>l", [[:set hlsearch<cr>]], options)
-keyset("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", options)
-keyset("n", "<leader>fb", "<cmd>Telescope buffers<cr>", options)
-keyset("t", "<esc>", [[<C-\><C-n>]], options)
-keyset("n", "<leader>yt", [[:tabnew<space>]], options)
-keyset("n", "]g", vim.diagnostic.goto_next)
-keyset("n", "[g", vim.diagnostic.goto_prev)
+vim.g.mapleader = " "
+Keyset("n", "<C-f>", [[:vimgrep<space>]], Options)
+Keyset("n", "<leader>ff", "<cmd>:Pick files<cr>", Options)
+Keyset("t", "<esc>", [[<C-\><C-n>]], Options)
+Keyset("n", "<TAB>", [[:tabnext<cr>]], Options)
+Keyset("n", "<S-TAB>", [[:tabprevious<cr>]], Options)
+Keyset("n", "<leader>l", [[:set hlsearch<cr>]], Options)
+Keyset("n", "<leader>c", [[:set ignorecase!<cr>]], Options)
+Keyset("n", "<leader>t", [[:tabnew<space>]], Options)
+Keyset("n", "<leader>q", [[:q!<cr>]], Options)
+Keyset("n", "<leader>w", [[:w<cr>]], Options)
+Keyset("n", "<leader>l", [[:set nohlsearch!<cr>]], Options)
+Keyset("n", "<leader>g", [[:GitBlameToggle<cr>]], Options)
+Keyset("n", "<leader>v", [[:vsplit<cr>]], Options)
+Keyset("n", "<leader>e", vim.diagnostic.open_float)
+Keyset("n", "<leader>.", vim.diagnostic.goto_prev)
+Keyset("n", "<leader>/", vim.diagnostic.goto_next)
+Keyset("n", "<leader>d", vim.diagnostic.setloclist)
+-- keyset("n", "<leader>Left", [[<C-w>h]], Options)
+-- keyset("n", "<leader>Right", [[<C-w>l]], Options)
 
 -- <SETS DEFAULTS>
-set.background = "dark"
--- Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
--- delays and poor user experience
-set.updatetime = 300
--- Always show the signcolumn, otherwise it would shift the text each time
--- diagnostics appear/become resolved
-set.signcolumn = "yes"
--- Disable compatibility with vi which can cause unexpected issues.
--- set.nocompatible = true
-set.filetype = "on"
--- Enable plugins and load plugin for the detected file type.
--- set.filetypeplugin = 'on'
--- Load an indent file for the detected file type.
--- set.filetypeindent = 'on'
-set.syntax = "on"
-set.number = true
-set.cursorline = true
-set.cursorcolumn = true
--- Enable auto completion menu after pressing TAB.
-set.wildmenu = true
-set.shiftwidth = 4
--- set.tab width to 4 columns.
-set.tabstop = 4
--- Use space characters instead of tabs.
-set.expandtab = true
--- Do not let cursor scroll below or above N number of lines when scrolling.
-set.scrolloff = 10
-set.wrap = true
--- While searching though a file incrementally highlight matching characters as you type.
-set.incsearch = true
-set.ignorecase = true
--- Override the ignorecase option if searching for capital letters.
--- This will allow you to search specifically for capital letters.
-set.smartcase = true
--- Show partial command you type in the last line of the screen.
-set.showcmd = true
--- Show the mode you are on the last line.
-set.showmode = true
--- Use highlighting when doing a search.
-set.hlsearch = true
-set.history = 1000
--- There are certain files that we would never want to edit with Vim.
--- Wildmenu will ignore files with these extensions.
-set.wildignore = "*.jpg,*.png,*.gif,*.pyc,*.exe,*.flv,*.img,*.xlsx"
-set.wildmode = "longest,list,full"
-set.wildmenu = true
+Set.number = true
+Set.messagesopt = "hit-enter,history:3000"
+Set.cursorline = true
+Set.cursorcolumn = true
 
+-- "The length of time Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime.
+-- This defaults to 4000 milliseconds which is rather too long. I recommend around 750 milliseconds but it depends on your system and your preferences. Note that in terminal Vim pre-7.4.427 an updatetime of less than approximately 1000 milliseconds can lead to random highlighting glitches; the lower the updatetime, the more glitches."
+-- Reference: https://www.reddit.com/r/vim/comments/3ql651/what_do_you_set_your_updatetime_to/
+Set.updatetime = 750
+-- Always show the signcolumn, otherwise it would shift the text each time diagnostics appear/become resolved
+-- https://www.reddit.com/r/neovim/comments/f04fao/my_biggest_vimneovim_wish_single_width_sign_column
+Set.signcolumn = "yes:1"
+
+Set.filetype = "on"
+
+-- The file types are also used for syntax highlighting.  If the ":syntax on" command is used, the file type detection is installed too.  There is no need to do ":filetype on" after ":syntax on"
+-- https://neovim.io/doc/user/filetype.html#%3Afiletype-indent-on
+Set.syntax = "on"
+Set.list = true
+-- Set.listchars = { tab = '| ' }
+-- https://www.reddit.com/r/neovim/comments/14xobx2/comment/jrorroe/?utm_source=share&utm_medium=web2x&context=3
+Set.listchars = "trail:-,nbsp:+,tab:▏ "
+
+-- Enable auto completion menu after pressing TAB.
+-- https://stackoverflow.com/questions/9511253/how-to-effectively-use-vim-wildmenu
+Set.wildmenu = true
+Set.wildmode = "longest:full,full"
+Set.wildignore = "*.jpg,*.png,*.gif,*.pyc,*.exe,*.flv,*.img,*.xlsx"
+
+-- https://www.reddit.com/r/vim/comments/99ylz8/confused_about_the_difference_between_tabstop_and/
+Set.shiftwidth = 4
+Set.tabstop = 4
+-- Use space characters instead of tabs.
+Set.expandtab = true
+-- Do not let cursor scroll below or above N number of lines when scrolling.
+-- If the last line on your screen is, say 90. When your cursor is on line 70, the screen will start moving down further. If you have a lower value, it just means you'll remain on the "same" location for longer before moving.
+Set.scrolloff = 10
+
+-- word wrapping
+Set.wrap = true
+-- Just wrap at a complete word and not a random letter or midway in a word.
+Set.linebreak = true
+--- I may have misunderstood this option, as I don't see any indents.
+Set.breakindent = true
+
+-- Set.showbreak = "+++ "
+
+-- searching a file incrementally highlight matching characters as you type.
+Set.incsearch = true
+
+-- I'd rather that this was a toggle.
+-- set.ignorecase = true
+
+-- Testing these, they may already be enabled due to a plugin I use.
+-- And don't use set autoindent. It's not very intelligent, it just copies the indent from the previous line. It's the opposite of what you're trying to do.https://stackoverflow.com/questions/45108986/introduce-tab-in-new-line-while-creating-a-block-for-python-files-in-vim
+-- Set.autoindent = true
+-- Set.smartindent = true
+
+-- Override the ignorecase option if searching pattern contains upper case characters.
+-- This will allow you to search specifically for capital letters.
+Set.smartcase = true
+Set.showmode = true
+Set.hlsearch = true
+Set.history = 5000
+
+-- https://neovim.io/doc/user/fold.html#_2.-fold-commands
+Set.foldmethod = "manual"
+>>>>>>> 64a2ae1 (major rework)
+
+-- Prepend 'lazypath' to the runtimepath (rtp) of neovim
+-- See https://stackoverflow.com/questions/78660123/what-is-vim-loop-fs-stat
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -83,7 +103,7 @@ if not vim.loop.fs_stat(lazypath) then
 		"clone",
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
+		"--branch=stable",
 		lazypath,
 	})
 end
@@ -95,9 +115,10 @@ require("lazy").setup({
 	"preservim/nerdtree",
 	"nvim-lua/plenary.nvim",
 	"f-person/git-blame.nvim", -- to be replaced by gitsigns
-	"godlygeek/tabular",
 	"preservim/vim-markdown",
 	"tpope/vim-apathy", -- The lovely gx and gf
+	"neovim/nvim-lspconfig",
+	{ "nvim-treesitter/nvim-treesitter", indent = true },
 	{
 		"lewis6991/gitsigns.nvim",
 		opts = {
@@ -148,10 +169,10 @@ require("lazy").setup({
 				row = 0,
 				col = 1,
 			},
-			config = function(_, opts)
-				require("gitsigns").setup(opts)
-			end,
 		},
+		config = function(_, opts)
+			require("gitsigns").setup(opts)
+		end,
 	},
 	{
 		"echasnovski/mini.statusline",
@@ -162,25 +183,12 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {
-			-- add any options here
-		},
-		dependencies = {
-			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-			"MunifTanjim/nui.nvim",
-			-- OPTIONAL:
-			--   `nvim-notify` is only needed, if you want to use the notification view.
-			--   If not available, we use `mini` as the fallback
-			"rcarriga/nvim-notify",
-		},
-	},
-	{ "akinsho/toggleterm.nvim", version = "*", config = true }, -- Need to use this more often, can't justify keeping it as of now
-	{ "nvim-treesitter/nvim-treesitter", indent = true },
-	{
 		"echasnovski/mini.pick",
 		version = false,
+		opts = {},
+		config = function(_, opts)
+			require("mini.pick").setup(opts)
+		end,
 	},
 	{
 		"saghen/blink.cmp",
@@ -199,17 +207,7 @@ require("lazy").setup({
 					end
 					return "make install_jsregexp"
 				end)(),
-				dependencies = {
-					-- `friendly-snippets` contains a variety of premade snippets.
-					--    See the README about individual language/framework/plugin snippets:
-					--    https://github.com/rafamadriz/friendly-snippets
-					-- {
-					--   'rafamadriz/friendly-snippets',
-					--   config = function()
-					--     require('luasnip.loaders.from_vscode').lazy_load()
-					--   end,
-					-- },
-				},
+				dependencies = {},
 				opts = {},
 			},
 			"folke/lazydev.nvim",
@@ -288,66 +286,6 @@ require("lazy").setup({
 		},
 		opts_extend = { "sources.default" },
 	},
-	{
-		"neovim/nvim-lspconfig",
-		dependencies = { "saghen/blink.cmp" },
-		--		vim.lsp.config("powershell_es", {
-		--			bundle_path = "/Users/abhishekchandrasekar/Downloads/PowerShellEditorServices",
-		--			cmd = {
-		--				"pwsh",
-		--				"-NoLogo",
-		--				"-NoProfile",
-		--				"-Command",
-		--				"/Users/abhishekchandrasekar/Downloads/PowerShellEditorServices/PowerShellEditorServices/Start-EditorServices.ps1 -SessionDetailsPath /Users/abhishekchandrasekar/Downloads/PowerShellEditorServices/PowerShellEditorServices/session.json",
-		--			},
-		--		}),
-
-		-- example using `opts` for defining servers
-		opts = {
-			servers = {
-				yamlls = {
-					settings = {
-						yaml = {
-							format = {
-								"enable",
-							},
-							customTags = {
-								"!And",
-								"!If",
-								"!Not",
-								"!Equals",
-								"!Or",
-								"!FindInMap sequence",
-								"!Base64",
-								"!Cidr",
-								"!Ref",
-								"!Sub",
-								"!GetAtt",
-								"!GetAZs",
-								"!ImportValue",
-								"!Select",
-								"!Select sequence",
-								"!Split",
-								"!Join sequence",
-							},
-						},
-					},
-				},
-				pylsp = {},
-				lua_ls = {},
-				bashls = {},
-				-- TODO: Add Terraform ls
-				--				powershell_es = {},
-			},
-		},
-		config = function(_, opts)
-			local lspconfig = require("lspconfig")
-			for server, config in pairs(opts.servers) do
-				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-				lspconfig[server].setup(config)
-			end
-		end,
-	},
 	{ -- Format
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
@@ -362,9 +300,12 @@ require("lazy").setup({
 				desc = "[F]ormat buffer",
 			},
 		},
+		-- This will provide type hinting with LuaLS
+		---@module "conform"
+		---@type conform.setupOpts
 		opts = {
 			-- Set to true to ignore errors
-			ignore_errors = false,
+			ignore_errors = true,
 			-- Map of treesitter language to filetype
 			lang_to_ft = {
 				-- bash = "sh",
@@ -395,19 +336,22 @@ require("lazy").setup({
 			lang_to_formatters = {},
 			notify_on_error = true,
 			notify_no_formatters = true,
-			format_on_save = {
-				lsp_format = "fallback",
-				timeout_ms = 500,
-			},
+			-- REDO THIS BELOW
+			-- format_on_save = {
+			--  lsp_format = "fallback",
+			--  timeout_ms = 500,
+			-- },
 			formatters_by_ft = {
 				lua = { "stylua" },
-				python = { "black" },
+				python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 				markdown = { "prettier" },
 				-- sh = { "shfmt" },
 				bash = { "shfmt" },
-				zsh = { "shfmt" },
-				-- terraform = { "terraform fmt" },
+				-- zsh = { "shfmt" },
+				terraform = { "terraform fmt" },
+				hcl = { "terraform fmt" },
 				yaml = { "prettier" },
+				json = { "prettier" },
 			},
 		},
 	},
@@ -449,9 +393,9 @@ require("lazy").setup({
 				-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
 				--  If you are experiencing weird indenting issues, add the language to
 				--  the list of additional_vim_regex_highlighting and disabled languages for indent.
-				additional_vim_regex_highlighting = { "ruby" },
+				additional_vim_regex_highlighting = { "ruby", "python" },
 			},
-			indent = { enable = true, disable = { "ruby" } },
+			indent = { enable = true, disable = { "ruby", "python" } },
 		},
 		config = function(_, opts)
 			-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -467,49 +411,175 @@ require("lazy").setup({
 			--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 		end,
 	},
+
 	{ -- Render markdown from neovim
 		"MeanderingProgrammer/render-markdown.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" }, -- if you use standalone mini plugins
+		-- cmd = { "ConformInfo" },
+		keys = {
+			{
+				"<leader>r",
+				function()
+					-- require("render-markdown").format({ async = true, lsp_format = "fallback" })
+					vim.cmd([[RenderMarkdown buf_toggle]])
+				end,
+				mode = "",
+				desc = "Toggle Rendering markdown",
+			},
+		},
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-		---@module 'render-markdown'
-		---@type render.md.UserConfig
+		--		---@module 'render-markdown'
+		--		---@type render.md.UserConfig
 		opts = {
 			render_modes = { "n", "c", "t" },
+			completions = { blink = { enabled = true } },
+			anti_conceal = { enabled = false },
 		},
 	},
 })
-vim.cmd([[colorscheme kanagawa]])
+-- Vimming
 
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-keyset("n", "<space>e", vim.diagnostic.open_float)
-keyset("n", "<leader>.", vim.diagnostic.goto_prev)
-keyset("n", "<leader>/", vim.diagnostic.goto_next)
-keyset("n", "<space>q", vim.diagnostic.setloclist)
+ExtraWhiteSpace = vim.cmd([[highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/]])
 
-require("render-markdown").setup({
-	completions = { blink = { enabled = true } },
-})
-require("mini.pick").setup()
-require("noice").setup({
-	lsp = {
-		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-		override = {
-			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-			["vim.lsp.util.stylize_markdown"] = true,
-			["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+Colourscheme = vim.cmd.colorscheme("kanagawa")
+
+--vim.cmd([[autocmd FileType * set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab]])
+
+-------------------------------------------------------------------------------
+-- Functions
+-------------------------------------------------------------------------------
+
+-- x = vim.api.nvim_open_win(0, true, { relative = "win", width = 60, height = 30, bufpos = { 50, 50 } })
+
+-- open_window_centred = function()
+-- 	local height = vim.o.lines
+-- 	local width = vim.o.columns
+-- 	local desired_width = math.floor(width * 0.75)
+-- 	local desired_height = math.floor(height * 0.75)
+-- 	local row = math.floor((height - desired_height) / 2)
+-- 	local col = math.floor((width - desired_width) / 2)
+--
+-- 	-- I don't think I need this
+-- 	--local buf = vim.api.nvim_create_buf(false, true)
+-- 	vim.api.nvim_open_win(0, true, {
+-- 		relative = "editor",
+-- 		width = desired_width,
+-- 		height = desired_height,
+-- 		row = row,
+-- 		col = col,
+-- 		border = "rounded",
+-- 		title = "Terminal!",
+-- 		title_pos = "left",
+-- 	})
+-- 	vim.cmd.terminal()
+-- end
+--
+-- open_window_centred()
+
+servers = {
+	yamlls = {
+		settings = {
+			yaml = {
+				format = {
+					"enable",
+				},
+				customTags = {
+					"!And",
+					"!If",
+					"!Not",
+					"!Equals",
+					"!Or",
+					"!FindInMap sequence",
+					"!Base64",
+					"!Cidr",
+					"!Ref",
+					"!Sub",
+					"!GetAtt",
+					"!GetAZs",
+					"!ImportValue",
+					"!Select",
+					"!Select sequence",
+					"!Split",
+					"!Join sequence",
+				},
+			},
 		},
 	},
-	-- you can enable a preset for easier configuration
-	presets = {
-		bottom_search = true, -- use a classic bottom cmdline for search
-		command_palette = true, -- position the cmdline and popupmenu together
-		long_message_to_split = true, -- long messages will be sent to a split
-		inc_rename = false, -- enables an input dialog for inc-rename.nvim
-		lsp_doc_border = false, -- add a border to hover docs and signature help
+	basedpyright = {},
+	lua_ls = {
+		settings = {
+			cmd = { "lua-language-server" },
+			filetypes = { "lua" },
+			root_markers = {
+				".luarc.json",
+				".luarc.jsonc",
+				".luacheckrc",
+				".stylua.toml",
+				"stylua.toml",
+				"selene.toml",
+				"selene.yml",
+				".git",
+			},
+			-- Do not send telemetry data containing a randomized but unique identifier
+			telemetry = {
+				enable = false,
+			},
+			diagnostics = {
+				globals = { "vim" },
+			},
+		},
 	},
-})
-require("luasnip/loaders/from_vscode").lazy_load()
-for _, path in ipairs(vim.api.nvim_get_runtime_file("lua/snippets/*.lua", true)) do
-	loadfile(path)()
+	bashls = {},
+	jsonls = {},
+	--ruff = {
+	--	settings = {
+	--		configuration = "~/ruff.toml",
+	--	},
+	--},
+	-- TODO: Add Terraform ls
+	--				powershell_es = {},
+}
+-- deprecated, added quickfix below
+-- config = function(_, opts)
+-- 	local lspconfig = require("lspconfig")
+-- 	for server, config in pairs(opts.servers) do
+-- 		config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+-- 		lspconfig[server].setup(config)
+-- 	end
+-- end,
+for server, config in pairs(servers) do
+	-- config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+	vim.lsp.config(server, {
+		-- everything should be in path so shouldn't need below command
+		-- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#ruff
+		settings = server.settings,
+	})
+	vim.lsp.enable(server)
 end
+
+-- Show fold help commands
+function show_fold_commands()
+    -- add shortcut file to the buffer
+ 	local height = vim.o.lines
+ 	local width = vim.o.columns
+ 	local desired_width = math.floor(width * 0.45)
+ 	local desired_height = math.floor(height * 0.45)
+ 	local row = math.floor((height - desired_height) / 2)
+ 	local col = math.floor((width - desired_width) / 2)
+
+ 	local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_call(buf, function() vim.cmd('edit ~/.config/nvim/fold-commands') end)
+ 	vim.api.nvim_open_win(buf, true, {
+ 		relative = "editor",
+ 		width = desired_width,
+ 		height = desired_height,
+ 		row = row,
+ 		col = col,
+ 		border = "rounded",
+        style = "minimal",
+ 		title = "Fold commands",
+ 		title_pos = "center",
+ 	})
+end
+-- Keyset("n", "<leader>z", show_fold_commands())
