@@ -3,10 +3,15 @@
 Dotfiles for the following:
 
 - Nvim
-     - Need to rewrite this config in lua
 
 ## Future stuff
 
 - tmux
 - zshrc
+- pyright config
+- ruff?
+- firefox
 - more
+
+## Bootstrapping
+- I've also got a bootstrapping script under ./bootstrap/bootstrap.sh
