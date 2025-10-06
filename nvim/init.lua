@@ -582,3 +582,8 @@ function show_fold_commands()
  	})
 end
 -- Keyset("n", "<leader>z", show_fold_commands())
+--
+-- TODOS:
+-- Autocommands to change certain keybinds when editing different filetypes (markdown = more fold options available with leader keys?)
+-- Complete above functions and test them
+-- Something else I forgot about...
