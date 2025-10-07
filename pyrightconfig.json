@@ -1,0 +1,28 @@
+{
+  "include": [$INCLUDE_DIR_HERE],
+  "exclude": ["**/.git", "**/node_modules", "**/__pycache__"],
+  "defineConstant": {
+    "DEBUG": true
+  },
+  "typeCheckingMode": "basic",
+  "reportMissingImports": "error",
+  "pythonVersion": "3.12",
+  "pythonPlatform": $INCLUDE_PLATFORM_HERE,
+  "analyzeUnannotatedFunctions": true,
+  "strictParameterNoneValue": true,
+  "reportUnreachable": "warning",
+  "reportUnusedParameter": "warning",
+  "reportImportCycles": "warning",
+  "executionEnvironments": [
+    {
+      "root": $INCLUDE_DIR_HERE
+    },
+    {
+      "root": $INCLUDE_DIR_HERE,
+      "reportUnusedImport": "warning",
+      "reportUnusedVariable": "warning",
+      "reportUnusedFunction": "warning",
+      "reportImportCycles": "warning"
+    }
+  ]
+}
